@@ -17,6 +17,7 @@ function entregaProdcutos(){
         `;
         
     }
+    //eventos
 
     productos.forEach(producto =>{
         document.getElementById(`btn${producto.id}`).addEventListener("click",function(){
@@ -37,9 +38,25 @@ function anadirAlStock(productoAnadir){
             <td>${productoAnadir.Referencia}</td>
             <td>${productoAnadir.nombre}</td>
             <td>${productoAnadir.precio}</td>
+            <td><button id="btn${producto.eliminar}" type="button" onclick="eliminar(event)" class="btn btn-warning">Eliminar</button></td>
         </tr>
     `;
 }
+//funcion eliminar boton productos
+ function eliminar(ev){
+    console.log(ev);
+    let fila=ev.target.parentElement.parentElement;
+    console.log(fila);
+    let id=fila.children[0].innerText;
+    console.log(id);
+    let indice = Stock.findIndex(producto=>producto.id==id);
+    console.log(indice)
+    //elimina producto
+    Stock.splice(indice,1);
+    console.table(Stock);
+    //remueve filas
+    fila.remove();
+ }
 
 //Almacenar producto por producto
 for (const producto of Stock) {
@@ -54,15 +71,3 @@ const guardarProductos = () => {
     })
 }
 let producto = []
-
-const renderProductos = (arr) => {
-    
-}
-// pedimos  datos y vemos contenido
-guardarProductos()
-    .then((res) => {
-        productos = rep
-        renderProductos(productos)
-    })
-
-
